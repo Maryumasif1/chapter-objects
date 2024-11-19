@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- chp objects -->
+     <!-- Q1 -->
+      <!-- <script>
+        var itemArray = [
+    { name: "juice", price: 50, quantity: 3 },
+    { name: "cookie", price: 30, quantity: 9 },
+    { name: "shirt", price: 880, quantity: 1 },
+    { name: "pen", price: 100, quantity: 2 }
+];
+
+// Initialize total price of all items
+let totalPriceAllItems = 0;
+
+// Calculate total price for each item and sum it for all items
+itemArray.forEach(item => {
+    const totalItemPrice = item.price * item.quantity;
+    console.log(`${item.name}: Total Price = ${totalItemPrice}`);
+    totalPriceAllItems += totalItemPrice;
+});
+
+console.log(`Total Price of All Items: ${totalPriceAllItems}`);
+
+      </script> -->
+
+      <!-- Q2 -->
+       <!-- <script>
+        // Creating the object with the specified properties
+var user = {
+    name: "jenny Doe",
+    email: "jenny.doe@example.com",
+    password: "securepassword123",
+    age: 30,
+    gender: "Female",
+    city: "New York",
+    country: "USA"
+};
+
+// Check if 'age' and 'country' properties exist in the object
+if ('age' in user) {
+    console.log("'age' property exists in the object.");
+} else {
+    console.log("'age' property does not exist in the object.");
+}
+
+if ('country' in user) {
+    console.log("'country' property exists in the object.");
+} else {
+    console.log("'country' property does not exist in the object.");
+}
+
+// Check if 'firstName' and 'lastName' properties exist in the object
+if ('firstName' in user) {
+    console.log("'firstName' property exists in the object.");
+} else {
+    console.log("'firstName' property does not exist in the object.");
+}
+
+if ('lastName' in user) {
+    console.log("'lastName' property exists in the object.");
+} else {
+    console.log("'lastName' property does not exist in the object.");
+}
+
+       </script> -->
+
+       <!-- Q3 -->
+        <!-- <script>
+            // Constructor function to create a Person object
+function Person(name, email, age, city) {
+    this.name = name;
+    this.email = email;
+    this.age = age;
+    this.city = city;
+}
+
+// Create multiple records (instances) using the constructor function
+var person1 = new Person("John Doe", "john.doe@example.com", 30, "New York");
+var person2 = new Person("Jane Smith", "jane.smith@example.com", 28, "Los Angeles");
+var person3 = new Person("Emily Johnson", "emily.johnson@example.com", 35, "Chicago");
+
+// Log the created records
+console.log(person1);
+console.log(person2);
+console.log(person3);
+
+        </script> -->
+
+        <!-- Q4 -->
+        <h2>Enter Population Records</h2>
+
+        <form id="populationForm">
+            <!-- Name -->
+            <label for="name">Name:</label>
+            <input type="text" id="name" required><br><br>
+        
+            <!-- Gender (Radio buttons) -->
+            <label>Gender:</label>
+            <input type="radio" id="male" name="gender" value="Male"> Male
+            <input type="radio" id="female" name="gender" value="Female"> Female<br><br>
+        
+            <!-- Address -->
+            <label for="address">Address:</label>
+            <input type="text" id="address" required><br><br>
+        
+            <!-- Education (Select box) -->
+            <label for="education">Education:</label>
+            <select id="education">
+                <option value="High School">High School</option>
+                <option value="Bachelor's">Bachelor's</option>
+                <option value="Master's">Master's</option>
+                <option value="PhD">PhD</option>
+            </select><br><br>
+        
+            <!-- Profession (Select box) -->
+            <label for="profession">Profession:</label>
+            <select id="profession">
+                <option value="Student">Student</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Artist">Artist</option>
+            </select><br><br>
+        
+            <!-- Save Button -->
+            <button type="submit">Save Record</button>
+        </form>
+        
+        <h3>Records:</h3>
+        <ul id="recordsList"></ul>
+        
+        <script>
+        // Constructor function for creating population records
+        function PopulationRecord(name, gender, address, education, profession) {
+            this.name = name;
+            this.gender = gender;
+            this.address = address;
+            this.education = education;
+            this.profession = profession;
+        }
+        
+        // Function to save the records to localStorage
+        function saveRecordToLocalStorage(record) {
+            let records = JSON.parse(localStorage.getItem('populationRecords')) || [];
+            records.push(record);
+            localStorage.setItem('populationRecords', JSON.stringify(records));
+        }
+        
+        // Function to display records from localStorage
+        function displayRecords() {
+            let records = JSON.parse(localStorage.getItem('populationRecords')) || [];
+            const recordsList = document.getElementById('recordsList');
+            recordsList.innerHTML = ''; // Clear the list first
+            records.forEach(record => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${record.name} - ${record.gender}, ${record.address}, ${record.education}, ${record.profession}`;
+                recordsList.appendChild(listItem);
+            });
+        }
+        
+        // Handle form submission
+        document.getElementById('populationForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from refreshing the page
+            
+            // Get the values from the form
+            const name = document.getElementById('name').value;
+            const address = document.getElementById('address').value;
+            const education = document.getElementById('education').value;
+            const profession = document.getElementById('profession').value;
+            
+            // Get gender from radio buttons
+            const gender = document.querySelector('input[name="gender"]:checked')?.value;
+            if (!gender) {
+                alert("Please select gender");
+                return;
+            }
+        
+            // Create a new PopulationRecord object
+            const newRecord = new PopulationRecord(name, gender, address, education, profession);
+        
+            // Save the new record to localStorage
+            saveRecordToLocalStorage(newRecord);
+        
+            // Display the updated list of records
+            displayRecords();
+        
+            // Clear the form
+            document.getElementById('populationForm').reset();
+        });
+        
+        // Display the existing records when the page loads
+        window.onload = function() {
+            displayRecords();
+        };
+        
+        </script>
+        
+
+       
+
+
+</body>
+</html>
